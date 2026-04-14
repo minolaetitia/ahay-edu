@@ -1,0 +1,41 @@
+<!-- Display list of courses : using tailwindcss , modern liste tables, new angular control form -->
+<div class="container mx-auto px-4 py-8">
+  <!-- Ajouter un bouton pour ajouter un nouveau cours tout à droite -->
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-3xl font-bold mb-6">Available Courses</h1>
+
+    <!-- En cliquant sur le bouton, on affiche le formulaire de création de cours -->
+    <button
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+      type="button"
+      (click)="showCourseForm = true"
+    >
+      Add New Course
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    @for (course of courseData; track course.id) {
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <img
+          [src]="course.thumbnailUrl"
+          alt="{{ course.title }}"
+          class="w-full h-48 object-cover"
+        />
+        <div class="p-4">
+          <h2 class="text-xl font-semibold mb-2">{{ course.title }}</h2>
+          <p class="text-gray-600 mb-4">{{ course.description }}</p>
+          <div class="flex items-center justify-between text-sm text-gray-500">
+            <span>{{ course.instructor }}</span>
+            <span>{{ course.duration }}</span>
+          </div>
+          <div class="mt-4">
+            <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">{{
+              course.level
+            }}</span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
