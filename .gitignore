@@ -5,6 +5,12 @@
 /tmp
 /out-tsc
 /bazel-out
+.claude/*
+.cursor/*
+.github/*
+.roo/*
+_bmad/*
+
 
 # Node
 /node_modules
@@ -19,6 +25,7 @@ yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
+*.md
 
 # Visual Studio Code
 .vscode/*
