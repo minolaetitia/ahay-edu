@@ -1,0 +1,26 @@
+{
+  "auth": {
+    "signup": {
+      "title": "Créer un compte",
+      "subtitle": "Rejoignez AhayEdu aujourd'hui",
+      "email": "Adresse email",
+      "password": "Mot de passe",
+      "togglePassword": "Afficher/masquer le mot de passe",
+      "passwordStrength": "Force du mot de passe",
+      "weak": "Faible",
+      "fair": "Moyen",
+      "good": "Bon",
+      "strong": "Très fort",
+      "invalidEmail": "Email invalide",
+      "weakPassword": "Le mot de passe doit contenir au moins 12 caractères",
+      "emailExists": "Cet email est déjà enregistré",
+      "validationError": "Veuillez vérifier vos données",
+      "serverError": "Erreur serveur. Veuillez réessayer",
+      "unknownError": "Une erreur inattendue s'est produite",
+      "registering": "Inscription en cours...",
+      "submit": "S'inscrire",
+      "alreadyHave": "Vous avez déjà un compte ?",
+      "signIn": "Se connecter"
+    }
+  }
+}
