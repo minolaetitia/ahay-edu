@@ -34,7 +34,7 @@
 ---
 
 generated: 2026-04-14
-last_updated: 2026-04-14
+last_updated: 2026-04-16
 project: ahay-edu
 project_key: NOKEY
 tracking_system: file-system
@@ -45,8 +45,8 @@ development_status:
   # EPIC 1: User Registration & Authentication
   # ============================================
   epic-1: in-progress
-  1-1-user-registration-with-email-validation: in-progress
-  1-2-user-authentication-with-jwt-and-refresh-tokens: backlog
+  1-1-user-registration-with-email-validation: done
+  1-2-user-authentication-with-jwt-and-refresh-tokens: in-progress
   1-3-user-role-management: backlog
   1-4-user-profile-management: backlog
   epic-1-retrospective: optional
