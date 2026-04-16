@@ -1,0 +1,86 @@
+# Sprint Status Tracking — AhayEdu
+# Generated: 2026-04-14
+# Last Updated: 2026-04-14 — Sprint 1 Launched (EPIC 1: User Auth)
+# Project: ahay-edu
+# Project Key: NOKEY
+# Tracking System: file-system
+# Story Location: _bmad-output/implementation-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review
+#   - done: Story completed and merged
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' when first story is created (via create-story)
+# - Stories worked in natural order, parallel work supported if capacity allows
+# - SM creates next story after previous is 'done' to incorporate learnings
+# - Dev moves story to 'review' after implementation, then runs code-review workflow
+
+---
+
+generated: 2026-04-14
+last_updated: 2026-04-14
+project: ahay-edu
+project_key: NOKEY
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+
+development_status:
+  # ============================================
+  # EPIC 1: User Registration & Authentication
+  # ============================================
+  epic-1: in-progress
+  1-1-user-registration-with-email-validation: in-progress
+  1-2-user-authentication-with-jwt-and-refresh-tokens: backlog
+  1-3-user-role-management: backlog
+  1-4-user-profile-management: backlog
+  epic-1-retrospective: optional
+
+  # ============================================
+  # EPIC 2: Course Creation & Publishing
+  # ============================================
+  epic-2: backlog
+  2-1-course-creation-by-instructors: backlog
+  2-2-course-publication-and-visibility: backlog
+  2-3-course-catalog-browsing-and-search: backlog
+  2-4-free-course-enrollment: backlog
+  epic-2-retrospective: optional
+
+  # ============================================
+  # EPIC 3: Secure Payments & Webhook Processing
+  # ============================================
+  epic-3: backlog
+  3-1-course-purchase-initiation-with-provider-selection: backlog
+  3-2-webhook-validation-and-idempotency: backlog
+  3-3-payment-webhook-processing-and-enrollment-creation: backlog
+  3-4-refund-processing-7-day-window: backlog
+  epic-3-retrospective: optional
+
+  # ============================================
+  # EPIC 4: Content Access Control
+  # ============================================
+  epic-4: backlog
+  4-1-enrollment-based-access-control: backlog
+  epic-4-retrospective: optional
+
+# SUMMARY
+# =======
+# Total Epics: 4
+# Total Stories: 13
+# Total Retrospectives: 4
+# Initial Status: All backlog (ready for Sprint 1)
