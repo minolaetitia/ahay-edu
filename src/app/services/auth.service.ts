@@ -15,6 +15,28 @@ export interface RegisterResponse {
   role: string;
 }
 
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  token: string;
+  refreshToken: string;
+  user: { userId: string; email: string; role: string };
+  expiresIn: number;
+}
+
+export interface RefreshRequest {
+  refreshToken: string;
+}
+
+export interface RefreshResponse {
+  token: string;
+  refreshToken: string;
+  expiresIn: number;
+}
+
 export interface AuthError {
   code: string;
   message: string;
@@ -105,6 +127,82 @@ export class AuthService {
   }
 
   /**
+   * Login with email and password
+   * Calls .NET Core backend endpoint: POST /api/auth/login
+   */
+  login(email: string, password: string): Observable<LoginResponse> {
+    // Validate input
+    if (!email?.trim() || !password?.trim()) {
+      return throwError(() => ({
+        code: 'VALIDATION_ERROR',
+        message: 'Email and password are required',
+      }));
+    }
+
+    const request: LoginRequest = { email, password };
+
+    return this.http
+      .post<LoginResponse>('/api/auth/login', request)
+      .pipe(
+        timeout(30000), // 30 second timeout
+        tap((response) => this.handleLoginSuccess(response)),
+        catchError((error) => this.handleAuthError(error)),
+      );
+  }
+
+  /**
+   * Refresh authentication token
+   * Calls .NET Core backend endpoint: POST /api/auth/refresh
+   */
+  refresh(refreshToken: string): Observable<RefreshResponse> {
+    if (!refreshToken?.trim()) {
+      return throwError(() => ({
+        code: 'VALIDATION_ERROR',
+        message: 'Refresh token is required',
+      }));
+    }
+
+    const request: RefreshRequest = { refreshToken };
+
+    return this.http
+      .post<RefreshResponse>('/api/auth/refresh', request)
+      .pipe(
+        timeout(30000), // 30 second timeout
+        tap((response) => this.handleRefreshSuccess(response)),
+        catchError((error) => this.handleAuthError(error)),
+      );
+  }
+
+  /**
+   * Store token and update authentication state for login
+   */
+  private handleLoginSuccess(response: LoginResponse): void {
+    // Validate response
+    if (!response.token || typeof response.token !== 'string') {
+      throw new Error('Invalid token in response');
+    }
+
+    this.authToken.set(response.token);
+    this.isAuthenticated.set(true);
+    this.currentUser.set(response.user);
+
+    // Store token in localStorage for persistence
+    this.setStorageToken(response.token);
+  }
+
+  /**
+   * Update token from refresh response
+   */
+  private handleRefreshSuccess(response: RefreshResponse): void {
+    if (!response.token || typeof response.token !== 'string') {
+      throw new Error('Invalid token in refresh response');
+    }
+
+    this.authToken.set(response.token);
+    this.setStorageToken(response.token);
+  }
+
+  /**
    * Store token and update authentication state
    */
   private handleAuthSuccess(response: RegisterResponse): void {
@@ -150,11 +248,25 @@ export class AuthService {
             message: error.error?.message || 'Invalid input',
           };
           break;
+        case 401:
+          // Invalid credentials
+          authError = {
+            code: 'INVALID_CREDENTIALS',
+            message: error.error?.message || 'Email or password is incorrect',
+          };
+          break;
         case 409:
           // Email already exists
           authError = {
             code: 'EMAIL_EXISTS',
             message: 'Email already registered',
+          };
+          break;
+        case 429:
+          // Rate limited
+          authError = {
+            code: 'RATE_LIMITED',
+            message: error.error?.message || 'Too many failed login attempts. Please try again in 15 minutes.',
           };
           break;
         case 500:
