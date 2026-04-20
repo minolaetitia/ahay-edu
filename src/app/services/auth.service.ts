@@ -49,9 +49,12 @@ export class AuthService {
   private http = inject(HttpClient);
 
   // Signal to track authentication state
-  isAuthenticated = signal(false);
-  currentUser = signal<{ userId: string; email: string; role: string } | null>(null);
-  authToken = signal<string | null>(null);
+  isAuthenticated = signal(true); // Default to true for development
+  currentUser = signal<{ id: string; email: string; role: string; name?: string } | null>(
+    // Mock user (Instructor) for development
+    { id: 'user-001', email: 'instructor@test.com', role: 'Instructor', name: 'Jean' }
+  );
+  authToken = signal<string | null>('mock-token-001');
 
   constructor() {
     // Check if token exists in localStorage on service initialization
@@ -61,6 +64,13 @@ export class AuthService {
       this.isAuthenticated.set(true);
       this.loadUserFromToken(storedToken);
     }
+  }
+
+  /**
+   * Check if user has specific role
+   */
+  hasRole(role: string): boolean {
+    return this.currentUser()?.role === role;
   }
 
   /**
@@ -184,7 +194,11 @@ export class AuthService {
 
     this.authToken.set(response.token);
     this.isAuthenticated.set(true);
-    this.currentUser.set(response.user);
+    this.currentUser.set({
+      id: response.user.userId,
+      email: response.user.email,
+      role: response.user.role,
+    });
 
     // Store token in localStorage for persistence
     this.setStorageToken(response.token);
@@ -214,7 +228,7 @@ export class AuthService {
     this.authToken.set(response.token);
     this.isAuthenticated.set(true);
     this.currentUser.set({
-      userId: response.userId,
+      id: response.userId,
       email: response.email,
       role: response.role,
     });
@@ -308,7 +322,7 @@ export class AuthService {
       const payload = this.parseJwt(token);
       if (payload && payload.userId && payload.email) {
         this.currentUser.set({
-          userId: payload.userId,
+          id: payload.userId,
           email: payload.email,
           role: payload.role || 'student',
         });

@@ -40,7 +40,7 @@ describe('AuthService', () => {
             expect(service.isAuthenticated()).toBe(true);
             expect(service.authToken()).toBe(mockResponse.token);
             expect(service.currentUser()).toEqual({
-              userId: mockResponse.userId,
+              id: mockResponse.userId,
               email: mockResponse.email,
               role: mockResponse.role,
             });
@@ -139,7 +139,7 @@ describe('AuthService', () => {
       service.authToken.set('test-token');
       service.isAuthenticated.set(true);
       service.currentUser.set({
-        userId: '123',
+        id: '123',
         email: 'user@example.mg',
         role: 'student',
       });
