@@ -22,5 +22,21 @@
       "alreadyHave": "Vous avez déjà un compte ?",
       "signIn": "Se connecter"
     }
+  },
+  "courses": {
+    "create": {
+      "form": {
+        "title_label": "Titre du cours",
+        "title_required": "Le titre est obligatoire",
+        "title_max_length": "Le titre ne doit pas dépasser 200 caractères",
+        "description_label": "Description",
+        "description_max_length": "La description ne doit pas dépasser 2000 caractères",
+        "price_label": "Prix",
+        "price_min": "Le prix doit être supérieur ou égal à 0",
+        "price_type": "Le prix doit être un nombre valide (ex: 10.50)"
+      },
+      "success_message": "Cours créé avec succès!",
+      "error_message": "Une erreur s'est produite lors de la création du cours"
+    }
   }
 }
