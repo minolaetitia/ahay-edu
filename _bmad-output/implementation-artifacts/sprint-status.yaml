@@ -1,6 +1,6 @@
 # Sprint Status Tracking — AhayEdu
 # Generated: 2026-04-14
-# Last Updated: 2026-04-14 — Sprint 1 Launched (EPIC 1: User Auth)
+# Last Updated: 2026-04-16 — Sprint 2 Launched (EPIC 2: Course Management — Frontend + Mocks)
 # Project: ahay-edu
 # Project Key: NOKEY
 # Tracking System: file-system
@@ -34,7 +34,9 @@
 ---
 
 generated: 2026-04-14
-last_updated: 2026-04-16
+last_updated: 2026-04-20
+sprint: 2
+sprint_focus: "EPIC 2: Course Management — Frontend + Mocks (Angular, no backend)"
 project: ahay-edu
 project_key: NOKEY
 tracking_system: file-system
@@ -54,11 +56,11 @@ development_status:
   # ============================================
   # EPIC 2: Course Creation & Publishing
   # ============================================
-  epic-2: backlog
-  2-1-course-creation-by-instructors: backlog
-  2-2-course-publication-and-visibility: backlog
-  2-3-course-catalog-browsing-and-search: backlog
-  2-4-free-course-enrollment: backlog
+  epic-2: in-progress
+  2-1-course-creation-by-instructors: done
+  2-2-course-publication-and-visibility: ready-for-dev
+  2-3-course-catalog-browsing-and-search: ready-for-dev
+  2-4-free-course-enrollment: ready-for-dev
   epic-2-retrospective: optional
 
   # ============================================
