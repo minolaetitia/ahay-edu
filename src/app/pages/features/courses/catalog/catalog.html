@@ -1,0 +1,88 @@
+<!-- Course Catalog -->
+<div class="catalog-container">
+  <!-- Header -->
+  <div class="catalog-header">
+    <h1>{{ i18n.getTranslation('courses.catalog.title') }}</h1>
+  </div>
+
+  <!-- Search & Filter -->
+  <div class="search-filter-section">
+    <input
+      #searchInput
+      type="search"
+      class="search-input"
+      placeholder="{{ i18n.getTranslation('courses.catalog.search_placeholder') }}"
+      (input)="onSearch(searchInput.value)"
+      aria-label="Search courses"
+    />
+    <div class="price-filter">
+      <label>{{ i18n.getTranslation('courses.catalog.filter_price_label') }}</label>
+      <div class="price-range">
+        <input
+          type="range"
+          min="0"
+          max="50000"
+          step="1000"
+          aria-label="Minimum price"
+        />
+        <input
+          type="range"
+          min="0"
+          max="50000"
+          step="1000"
+          aria-label="Maximum price"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  @if (isLoading()) {
+  <div class="loading-state">
+    <p>⏳ {{ i18n.getTranslation('common.loading') }}</p>
+  </div>
+  }
+
+  <!-- Error State -->
+  @if (error()) {
+  <div class="error-state">
+    <p class="error-message">{{ error() }}</p>
+  </div>
+  }
+
+  <!-- No Results State -->
+  @if (hasNoCourses() && !isLoading()) {
+  <div class="empty-state">
+    <p>{{ i18n.getTranslation('courses.catalog.empty_state') }}</p>
+  </div>
+  }
+
+  <!-- Course Grid -->
+  @if (filteredCourses().length > 0) {
+  <div class="courses-grid">
+    @for (course of filteredCourses(); track course.id) {
+    <div class="course-card">
+      <div class="course-image">
+        <span class="published-badge">{{ i18n.getTranslation('courses.status.published') }}</span>
+      </div>
+
+      <div class="course-content">
+        <h3>{{ course.title }}</h3>
+
+        <p class="course-description">
+          {{ course.description || i18n.getTranslation('courses.no_description') }}
+        </p>
+
+        <div class="course-meta">
+          <span class="price">{{ formatPrice(course.price) }}</span>
+        </div>
+
+        <button (click)="enrollCourse(course)" class="btn-enroll">
+          {{ i18n.getTranslation('courses.catalog.enroll_button') }}
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+  }
+</div>
