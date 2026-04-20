@@ -1,0 +1,142 @@
+<!-- My Courses Dashboard -->
+<div class="my-courses-container">
+  <!-- Header -->
+  <div class="courses-header">
+    <h1>{{ i18n.getTranslation('courses.my_courses') }}</h1>
+    <button (click)="createNewCourse()" class="btn-primary">
+      {{ i18n.getTranslation('courses.create.button') }}
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  @if (isLoading()) {
+  <div class="loading-state">
+    <p>⏳ {{ i18n.getTranslation('common.loading') }}</p>
+  </div>
+  }
+
+  <!-- Error State -->
+  @if (error()) {
+  <div class="error-state">
+    <p class="error-message">{{ error() }}</p>
+  </div>
+  }
+
+  <!-- No Courses State -->
+  @if (hasNoCourses() && !isLoading()) {
+  <div class="empty-state">
+    <p>{{ i18n.getTranslation('courses.no_courses') }}</p>
+    <button (click)="createNewCourse()" class="btn-primary">
+      {{ i18n.getTranslation('courses.create_first_course') }}
+    </button>
+  </div>
+  }
+
+  <!-- Draft Courses Section -->
+  @if (draftCourses().length > 0) {
+  <div class="courses-section">
+    <h2>{{ i18n.getTranslation('courses.status.draft') }}</h2>
+    <div class="courses-grid">
+      @for (course of draftCourses(); track course.id) {
+      <div class="course-card">
+        <div class="course-header">
+          <h3>{{ course.title }}</h3>
+          <span class="status-badge draft">
+            {{ getStatusLabel(course.status) }}
+          </span>
+        </div>
+
+        <p class="course-description">
+          {{ course.description || i18n.getTranslation('courses.no_description') }}
+        </p>
+
+        <div class="course-meta">
+          <span class="price">{{ formatPrice(course.price) }}</span>
+          <span class="date">
+            {{ formatDate(course.createdAt) }}
+          </span>
+        </div>
+
+        <div class="course-actions">
+          <button
+            (click)="publishCourse(course)"
+            class="btn-success"
+            title="Publish this course to make it visible to students"
+          >
+            📤 {{ i18n.getTranslation('courses.publish.button') }}
+          </button>
+          <button
+            (click)="viewCourse(course.id)"
+            class="btn-secondary"
+            title="View course details"
+          >
+            👁️ {{ i18n.getTranslation('courses.view') }}
+          </button>
+          <button
+            (click)="deleteCourse(course.id)"
+            class="btn-danger"
+            title="Delete this course"
+          >
+            🗑️ {{ i18n.getTranslation('courses.delete') }}
+          </button>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+  }
+
+  <!-- Published Courses Section -->
+  @if (publishedCourses().length > 0) {
+  <div class="courses-section">
+    <h2>{{ i18n.getTranslation('courses.status.published') }}</h2>
+    <div class="courses-grid">
+      @for (course of publishedCourses(); track course.id) {
+      <div class="course-card published">
+        <div class="course-header">
+          <h3>{{ course.title }}</h3>
+          <span class="status-badge published">
+            {{ getStatusLabel(course.status) }}
+          </span>
+        </div>
+
+        <p class="course-description">
+          {{ course.description || i18n.getTranslation('courses.no_description') }}
+        </p>
+
+        <div class="course-meta">
+          <span class="price">{{ formatPrice(course.price) }}</span>
+          <span class="date">
+            {{ formatDate(course.createdAt) }}
+          </span>
+        </div>
+
+        <div class="course-actions">
+          <button
+            (click)="unpublishCourse(course)"
+            class="btn-warning"
+            title="Unpublish to stop accepting new enrollments"
+          >
+            📥 {{ i18n.getTranslation('courses.unpublish.button') }}
+          </button>
+          <button
+            (click)="viewCourse(course.id)"
+            class="btn-secondary"
+            title="View course details"
+          >
+            👁️ {{ i18n.getTranslation('courses.view') }}
+          </button>
+          <button
+            (click)="deleteCourse(course.id)"
+            class="btn-danger"
+            title="Delete this course"
+          >
+            🗑️ {{ i18n.getTranslation('courses.delete') }}
+          </button>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+  }
+</div>
